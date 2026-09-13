@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A premium birthday surprise landing page."
+    />
+    <title>Happy Birthday Beautiful</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <button class="page-back-button" id="pageBackButton" type="button" aria-label="Go to previous page" hidden>
+      <span aria-hidden="true">&#8592;</span> Back
+    </button>
+    <main class="birthday-page">
+      <section class="hero" id="welcomeSection" aria-labelledby="birthday-title">
+        <div class="ambient" aria-hidden="true">
+          <span class="bokeh bokeh-one"></span>
+          <span class="bokeh bokeh-two"></span>
+          <span class="bokeh bokeh-three"></span>
+          <span class="bokeh bokeh-four"></span>
+          <span class="sparkle sparkle-one"></span>
+          <span class="sparkle sparkle-two"></span>
+          <span class="sparkle sparkle-three"></span>
+          <span class="sparkle sparkle-four"></span>
+          <span class="sparkle sparkle-five"></span>
+        </div>
+
+        <div class="hero-content">
+          <p class="eyebrow reveal reveal-delay-one">
+            A little surprise is waiting for you...
+          </p>
+
+          <div class="message">
+            <h1 id="birthday-title" class="reveal reveal-delay-two">
+              Happy Birthday, Beautiful <span aria-hidden="true">&#10084;&#65039;</span>
+            </h1>
+            <p class="subtitle reveal reveal-delay-three">
+              Today is all about you.
+            </p>
+          </div>
+
+          <div class="gift-stage reveal reveal-delay-four" aria-hidden="true">
+            <div class="gift-box" id="giftBox">
+              <div class="gift-lid">
+                <span class="lid-top"></span>
+                <span class="lid-ribbon"></span>
+              </div>
+              <div class="gift-base">
+                <span class="front-ribbon"></span>
+                <span class="side-shine"></span>
+              </div>
+              <div class="gift-bow">
+                <span class="bow-loop bow-left"></span>
+                <span class="bow-loop bow-right"></span>
+                <span class="bow-knot"></span>
+              </div>
+              <div class="gift-sparkles" id="giftSparkles"></div>
+            </div>
+          </div>
+
+          <button
+            class="surprise-button reveal reveal-delay-five"
+            id="openSurprise"
+            type="button"
+            aria-label="Open your birthday surprise"
+          >
+            Open Your Surprise
+          </button>
+
+          <p class="sr-only" id="surpriseStatus" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section
+        class="wish-section"
+        id="wishSection"
+        aria-labelledby="wish-title"
+        tabindex="-1"
+      >
+        <div class="wish-ambient" aria-hidden="true">
+          <span class="wish-glow wish-glow-one"></span>
+          <span class="wish-glow wish-glow-two"></span>
+          <span class="wish-glow wish-glow-three"></span>
+          <span class="wish-sparkle wish-sparkle-one"></span>
+          <span class="wish-sparkle wish-sparkle-two"></span>
+          <span class="wish-sparkle wish-sparkle-three"></span>
+          <span class="drifting-heart heart-one">&#9829;</span>
+          <span class="drifting-heart heart-two">&#9829;</span>
+          <span class="drifting-heart heart-three">&#9829;</span>
+        </div>
+
+        <div class="wish-content">
+          <div class="wish-header">
+            <h2 id="wish-title">Birthday Wishes From Your Favorite People &#128150;</h2>
+            <p>
+              Every wish is waiting for you. Tap the bowl and discover one.
+            </p>
+          </div>
+
+          <button
+            class="wish-bowl-button"
+            id="wishBowlButton"
+            type="button"
+            aria-describedby="wishCounter"
+          >
+            <span class="wish-bowl-label">Open a wish from the bowl</span>
+            <span class="wish-bowl" id="wishBowl" aria-hidden="true">
+              <span class="bowl-notes">
+                <span class="paper-note note-one"></span>
+                <span class="paper-note note-two"></span>
+                <span class="paper-note note-three"></span>
+                <span class="paper-note note-four"></span>
+                <span class="paper-note note-five"></span>
+                <span class="paper-note note-six"></span>
+              </span>
+              <span class="bowl-glass"></span>
+              <span class="bowl-shine"></span>
+              <span class="bowl-rim"></span>
+            </span>
+          </button>
+
+          <p class="wish-counter" id="wishCounter" aria-live="polite">Loading wishes...</p>
+
+          <div class="wish-card-wrap" id="wishCardWrap" aria-live="polite">
+            <article class="wish-card" id="wishCard" hidden>
+              <p class="wish-card-from">From</p>
+              <h3 id="wishName"></h3>
+              <p id="wishMessage"></p>
+            </article>
+          </div>
+
+          <div class="wish-complete" id="wishComplete" hidden>
+            <p>You've opened every birthday wish! &#127881;</p>
+            <button class="pill-button" id="resetBowl" type="button">
+              Reset Bowl
+            </button>
+            <button class="pill-button" id="continueToGallery" type="button">
+              Continue
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="memory-section"
+        id="memorySection"
+        aria-labelledby="memory-title"
+        tabindex="-1"
+      >
+        <div class="memory-ambient" aria-hidden="true">
+          <span class="paper-grain"></span>
+          <span class="memory-glow memory-glow-one"></span>
+          <span class="memory-glow memory-glow-two"></span>
+          <span class="scrapbook-mark flower-one">&#10047;</span>
+          <span class="scrapbook-mark flower-two">&#10047;</span>
+          <span class="scrapbook-mark memory-heart">&#9829;</span>
+          <span class="scrapbook-mark memory-star">&#10022;</span>
+        </div>
+
+        <div class="memory-content">
+          <div class="memory-progress" id="memoryProgress" aria-live="polite">
+            Memory 1 / 8
+          </div>
+
+          <div class="memory-header">
+            <h2 id="memory-title">A Few Beautiful Memories &#128248;</h2>
+            <p>Every picture tells a little story.</p>
+          </div>
+
+          <div class="scrapbook-spread" id="scrapbookSpread">
+            <article class="memory-card featured-memory" data-memory-index="0">
+              <button class="memory-photo-button" type="button" aria-label="Open memory: Your Brightest Smile">
+                <span class="tape tape-top"></span>
+                <img
+                  src="./Images/family.png"
+                  alt="Placeholder for Your Brightest Smile memory"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="memory-copy">
+                <h3>Your Brightest Smile</h3>
+                <p>Home is where this smile began ❤️</p>
+                <time datetime="2026-01-14">Till end</time>
+              </div>
+            </article>
+
+            <article class="memory-card memory-two" data-memory-index="1">
+              <button class="memory-photo-button" type="button" aria-label="Open memory: Golden Hour Laughs">
+                <span class="tape tape-corner"></span>
+                <img
+                  src="./Images/us.png"
+                  alt="Placeholder for Golden Hour Laughs memory"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="memory-copy">
+                <h3>Mayyy beee 🧿✨</h3>
+                <p>My favorite daydream? Me as Nick Wilde🦊, you as Judy Hopps🐰</p>
+                <time datetime="2026-06-27">Jun 27</time>
+              </div>
+            </article>
+
+            <article class="memory-card memory-three" data-memory-index="2">
+              <button class="memory-photo-button" type="button" aria-label="Open memory: Sweet Little Adventure">
+                <span class="tape tape-top"></span>
+                <img
+                  src="./Images/iphone.jpeg"
+                  alt="Placeholder for Sweet Little Adventure memory"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="memory-copy">
+                <h3>why this?</h3>
+                <p>Had a family moment… nahh, got an iPhone in hand 😂📱</p>
+                <time datetime="2026-06-28">June 28</time>
+              </div>
+            </article>
+
+            <article class="memory-card memory-four" data-memory-index="3">
+              <button class="memory-photo-button" type="button" aria-label="Open memory: Soft Evening Magic">
+                <span class="tape tape-corner"></span>
+                <img
+                  src="./Images/We.png"
+                  alt="Placeholder for Soft Evening Magic memory"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="memory-copy">
+                <h3>Very first pic together</h3>
+                <p>Our first click together 💛💜</p>
+                <time datetime="2025-09-22">Sep 22 - 2025</time>
+              </div>
+            </article>
+
+            <article class="memory-card memory-five" data-memory-index="4">
+              <button class="memory-photo-button" type="button" aria-label="Open memory: The Happy Pause">
+                <span class="tape tape-top"></span>
+                <img
+                  src="./Images/thesplone.jpeg"
+                  alt="Placeholder for The Happy Pause memory"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="memory-copy">
+                <h3>This one, a little more.</h3>
+                <p>Every picture of you is special, but this one… a little more 💛</p>
+                <time datetime="2025-01-19">Jan 19 - 2025</time>
+              </div>
+            </article>
+
+            <article class="memory-card memory-six" data-memory-index="5">
+              <button class="memory-photo-button memory-video-button" type="button" aria-label="Play memory video: Pretty Little Chaos">
+                <span class="tape tape-corner"></span>
+                <video
+                  src="./Images/firstVid.mp4"
+                  muted
+                  playsinline
+                  preload="auto"
+                ></video>
+              </button>
+              <div class="memory-copy">
+                <h3>Caught without knowing</h3>
+                <p>Youe camera, Your secret, best memory❤️</p>
+                <time datetime="2025-09-14">Sep 14 - 2025</time>
+              </div>
+            </article>
+
+            <article class="memory-card memory-seven" data-memory-index="6">
+              <button class="memory-photo-button" type="button" aria-label="Open memory: A Day To Keep">
+                <span class="tape tape-top"></span>
+                <img
+                  src="./Images/littleHeart.jpeg"
+                  alt="Placeholder for A Day To Keep memory"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="memory-copy">
+                <h3>A little heart</h3>
+                <p>The heart was planned… the photobomb wasn’t 😂❤️</p>
+                <time datetime="2025-03-2">Mar 2 - 2025</time>
+              </div>
+            </article>
+
+            <article class="memory-card memory-eight" data-memory-index="7">
+              <button class="memory-photo-button" type="button" aria-label="Open memory: Forever Favorite">
+                <span class="tape tape-corner"></span>
+                <img
+                  src="https://picsum.photos/seed/birthday-memory-8/900/1100"
+                  alt="Placeholder for Forever Favorite memory"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="memory-copy">
+                <h3>Forever Favorite</h3>
+                <p>The sweetest page in this little scrapbook.</p>
+                <time datetime="2026-08-30">Aug 30</time>
+              </div>
+            </article>
+          </div>
+
+          <button class="pill-button journey-button" id="journeyButton" type="button">
+            Continue the Journey &#8594;
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="admire-section"
+        id="admireSection"
+        aria-labelledby="admire-title"
+        tabindex="-1"
+      >
+        <div class="admire-ambient" aria-hidden="true">
+          <span class="admire-glow admire-glow-one"></span>
+          <span class="admire-glow admire-glow-two"></span>
+          <span class="admire-sparkle admire-sparkle-one"></span>
+          <span class="admire-sparkle admire-sparkle-two"></span>
+          <span class="admire-sparkle admire-sparkle-three"></span>
+          <span class="floating-petal petal-one"></span>
+          <span class="floating-petal petal-two"></span>
+          <span class="floating-petal petal-three"></span>
+          <span class="floating-petal petal-four"></span>
+        </div>
+
+        <div class="admire-content">
+          <div class="admire-header">
+            <h2 id="admire-title">Things I Admire About You</h2>
+            <p>Some of the little things that make you special.</p>
+          </div>
+
+          <p class="compliment-counter" id="complimentCounter">
+            0 of 12 little compliments discovered
+          </p>
+
+          <div class="compliment-garden" id="complimentGarden">
+            <button class="compliment-card featured-compliment" type="button" data-compliment-index="0">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your smile</span>
+              <span class="compliment-message">
+                Your smile has this gentle way of making the whole room feel warmer.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-two" type="button" data-compliment-index="1">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your kindness</span>
+              <span class="compliment-message">
+                You notice people in the sweetest, quietest ways.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-three" type="button" data-compliment-index="2">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your confidence</span>
+              <span class="compliment-message">
+                You carry yourself with a calm strength that feels inspiring.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-four" type="button" data-compliment-index="3">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your laugh</span>
+              <span class="compliment-message">
+                Your laugh makes simple moments feel unforgettable.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-five" type="button" data-compliment-index="4">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your patience</span>
+              <span class="compliment-message">
+                You give people room to be human, and that is rare.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-six" type="button" data-compliment-index="5">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your honesty</span>
+              <span class="compliment-message">
+                You speak with a sincerity that makes people trust you.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-seven" type="button" data-compliment-index="6">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your creativity</span>
+              <span class="compliment-message">
+                You see beauty in details other people might miss.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-eight" type="button" data-compliment-index="7">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your caring nature</span>
+              <span class="compliment-message">
+                The way you care feels thoughtful, steady, and genuine.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-nine" type="button" data-compliment-index="8">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your determination</span>
+              <span class="compliment-message">
+                You keep going with grace, even when things are not easy.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-ten" type="button" data-compliment-index="9">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your positivity</span>
+              <span class="compliment-message">
+                You bring lightness without pretending everything is perfect.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-eleven" type="button" data-compliment-index="10">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">Your sense of humor</span>
+              <span class="compliment-message">
+                You know how to turn an ordinary moment into something fun.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+
+            <button class="compliment-card compliment-twelve" type="button" data-compliment-index="11">
+              <span class="flower-shape" aria-hidden="true"></span>
+              <span class="compliment-front">The way you brighten days</span>
+              <span class="compliment-message">
+                You make people feel seen, lighter, and quietly happier.
+              </span>
+              <span class="card-sparkles" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="compliment-complete" id="complimentComplete" hidden>
+            <p>You discovered every little compliment. &#128150;</p>
+          </div>
+
+          <button class="pill-button surprise-section-button" id="surpriseSectionButton" type="button">
+            There's One More Surprise &#8594;
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="surprise-section"
+        id="surpriseSection"
+        aria-labelledby="surprise-title"
+        tabindex="-1"
+      >
+        <div class="surprise-ambient" aria-hidden="true">
+          <span class="surprise-glow surprise-glow-one"></span>
+          <span class="surprise-glow surprise-glow-two"></span>
+          <span class="surprise-sparkle surprise-sparkle-one"></span>
+          <span class="surprise-sparkle surprise-sparkle-two"></span>
+          <span class="surprise-sparkle surprise-sparkle-three"></span>
+          <span class="floating-petal surprise-petal-one"></span>
+          <span class="floating-petal surprise-petal-two"></span>
+          <span class="floating-petal surprise-petal-three"></span>
+        </div>
+
+        <div class="surprise-content">
+          <div class="surprise-header">
+            <h2 id="surprise-title">Little Birthday Surprises</h2>
+            <p>Tap anything that sparkles... you might find a surprise.</p>
+          </div>
+
+          <p class="surprise-counter" id="surpriseCounter">
+            0 of 10 surprises discovered
+          </p>
+
+          <div class="surprise-scene" id="surpriseScene">
+            <button class="surprise-object flower-object" type="button" data-surprise-index="0">
+              <span class="object-icon" aria-hidden="true">&#127800;</span>
+              <span class="object-label">Flower</span>
+              <span class="tiny-surprise-card">May today make you smile.</span>
+            </button>
+
+            <button class="surprise-object star-object" type="button" data-surprise-index="1">
+              <span class="object-icon" aria-hidden="true">&#11088;</span>
+              <span class="object-label">Star</span>
+              <span class="tiny-surprise-card">Keep shining in your own beautiful way.</span>
+            </button>
+
+            <button class="surprise-object balloon-object" type="button" data-surprise-index="2">
+              <span class="object-icon" aria-hidden="true">&#127880;</span>
+              <span class="object-label">Balloon</span>
+              <span class="tiny-surprise-card">You deserve lots of happiness.</span>
+            </button>
+
+            <button class="surprise-object mini-gift-object" type="button" data-surprise-index="3">
+              <span class="object-icon" aria-hidden="true">&#127873;</span>
+              <span class="object-label">Mini Gift Box</span>
+              <span class="tiny-surprise-card">A tiny wish wrapped just for you.</span>
+            </button>
+
+            <button class="surprise-object butterfly-object" type="button" data-surprise-index="4">
+              <span class="object-icon" aria-hidden="true">&#129419;</span>
+              <span class="object-label">Butterfly</span>
+              <span class="tiny-surprise-card">May this year feel light and lovely.</span>
+            </button>
+
+            <button class="surprise-object heart-object" type="button" data-surprise-index="5">
+              <span class="object-icon" aria-hidden="true">&#128150;</span>
+              <span class="object-label">Heart</span>
+              <span class="tiny-surprise-card">Never stop smiling.</span>
+            </button>
+
+            <button class="surprise-object moon-object" type="button" data-surprise-index="6">
+              <span class="object-icon" aria-hidden="true">&#127769;</span>
+              <span class="object-label">Moon</span>
+              <span class="tiny-surprise-card">Soft dreams and peaceful days for you.</span>
+            </button>
+
+            <button class="surprise-object cupcake-object" type="button" data-surprise-index="7">
+              <span class="object-icon" aria-hidden="true">&#127856;</span>
+              <span class="object-label">Cupcake</span>
+              <span class="tiny-surprise-card">Today's your special day.</span>
+            </button>
+
+            <button class="surprise-object rose-object" type="button" data-surprise-index="8">
+              <span class="object-icon" aria-hidden="true">&#127801;</span>
+              <span class="object-label">Rose</span>
+              <span class="tiny-surprise-card">Here is a little bloom of joy.</span>
+            </button>
+
+            <button class="surprise-object cloud-object" type="button" data-surprise-index="9">
+              <span class="object-icon" aria-hidden="true">&#9729;&#65039;</span>
+              <span class="object-label">Cloud</span>
+              <span class="tiny-surprise-card">May happiness find you everywhere.</span>
+            </button>
+
+            <button class="golden-secret-star" id="goldenSecretStar" type="button">
+              <span class="object-icon" aria-hidden="true">&#11088;</span>
+              <span class="object-label">Golden Star</span>
+              <span class="golden-surprise-card">
+                A special surprise is waiting a little further...
+              </span>
+            </button>
+          </div>
+
+          <div class="surprise-complete" id="surpriseComplete" hidden>
+            <p>Every surprise has been discovered! &#127800;</p>
+          </div>
+
+          <button class="pill-button letter-section-button" id="letterSectionButton" type="button">
+            Read Something Special &#128140;
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="letter-section"
+        id="letterSection"
+        aria-labelledby="letter-title"
+        tabindex="-1"
+      >
+        <div class="letter-ambient" aria-hidden="true">
+          <span class="paper-sunlight"></span>
+          <span class="letter-flower letter-flower-one">&#10047;</span>
+          <span class="letter-flower letter-flower-two">&#10047;</span>
+          <span class="letter-flower letter-flower-three">&#10047;</span>
+          <span class="floating-petal letter-petal-one"></span>
+          <span class="floating-petal letter-petal-two"></span>
+          <span class="floating-petal letter-petal-three"></span>
+        </div>
+
+        <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false">
+          <span class="music-icon" aria-hidden="true">&#9835;</span>
+          <span id="musicToggleText">Play</span>
+        </button>
+
+        <div class="letter-content">
+          <div class="letter-intro" id="letterIntro">
+            <h2 id="letter-title">A Letter For You &#128140;</h2>
+            <p>Tap the envelope to read your confidential report...</p>
+          </div>
+
+          <div class="envelope-scene" id="envelopeScene">
+            <button
+              class="envelope-button"
+              id="envelopeButton"
+              type="button"
+              aria-label="Open the birthday letter"
+              aria-haspopup="dialog"
+            >
+              <span class="envelope" aria-hidden="true">
+                <span class="envelope-back"></span>
+                <span class="envelope-letter-peek"></span>
+                <span class="envelope-flap"></span>
+                <span class="envelope-front"></span>
+                <span class="wax-seal"></span>
+                <span class="envelope-sparkles"></span>
+              </span>
+            </button>
+          </div>
+
+          <div class="letter-end" id="letterEnd" hidden>
+            <p>Thank you for reading.</p>
+            <button class="pill-button final-surprise-button" id="finalSurpriseButton" type="button">
+              One Last Surprise &#8594;
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="finale-section"
+        id="finaleSection"
+        aria-labelledby="finale-title"
+        tabindex="-1"
+      >
+        <div class="finale-ambient" aria-hidden="true">
+          <span class="finale-glow"></span>
+          <span class="finale-sparkle finale-sparkle-one"></span>
+          <span class="finale-sparkle finale-sparkle-two"></span>
+          <span class="finale-sparkle finale-sparkle-three"></span>
+          <span class="finale-balloon balloon-rose"></span>
+          <span class="finale-balloon balloon-gold"></span>
+          <span class="finale-balloon balloon-lavender"></span>
+          <span class="finale-confetti confetti-one"></span>
+          <span class="finale-confetti confetti-two"></span>
+          <span class="finale-confetti confetti-three"></span>
+          <span class="finale-confetti confetti-four"></span>
+        </div>
+
+        <div class="finale-content">
+          <div class="finale-header">
+            <h2 id="finale-title">Happy Birthday, Chimp🐵💜! &#127874;&#10024;</h2>
+            <p>I hope today brings you lots of smiles and beautiful memories.</p>
+          </div>
+
+          <button
+            class="cake-button"
+            id="cakeButton"
+            type="button"
+            aria-label="Light the birthday candles"
+          >
+            <span class="birthday-cake" aria-hidden="true">
+              <span class="cake-candles">
+                <span class="candle candle-one"><span class="flame"></span><span class="smoke"></span></span>
+                <span class="candle candle-two"><span class="flame"></span><span class="smoke"></span></span>
+                <span class="candle candle-three"><span class="flame"></span><span class="smoke"></span></span>
+                <span class="candle candle-four"><span class="flame"></span><span class="smoke"></span></span>
+                <span class="candle candle-five"><span class="flame"></span><span class="smoke"></span></span>
+              </span>
+              <span class="cake-tier cake-top"></span>
+              <span class="cake-tier cake-middle"></span>
+              <span class="cake-tier cake-bottom"></span>
+              <span class="cake-flowers">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </span>
+          </button>
+
+          <button class="pill-button cake-action-button" id="cakeActionButton" type="button">
+            Light the Candles
+          </button>
+
+          <div class="wish-sent-card" id="wishSentCard" hidden>
+            <h3>Your Wish Has Been Sent Into the Stars &#11088;</h3>
+            <p>I hope every wish you make today brings happiness into your life.</p>
+          </div>
+
+          <div class="floating-wish-layer" id="floatingWishLayer" aria-hidden="true"></div>
+
+          <div class="final-thanks-card">
+            <p>Thank you for taking this little birthday journey.</p>
+            <strong>Wishing you a wonderful birthday.</strong>
+            <span>&mdash; Coder💻💛</span>
+          </div>
+
+          <button class="pill-button proposal-next-button" id="openProposal" type="button" hidden>
+            There&rsquo;s one more memory I want to make&hellip;
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="proposal-section"
+        id="proposalSection"
+        aria-labelledby="proposal-title"
+        tabindex="-1"
+      >
+        <div class="proposal-ambient" aria-hidden="true">
+          <span class="proposal-glow proposal-glow-one"></span>
+          <span class="proposal-glow proposal-glow-two"></span>
+          <span class="proposal-heart heart-a">&#10084;</span>
+          <span class="proposal-heart heart-b">&#10084;</span>
+          <span class="proposal-heart heart-c">&#10084;</span>
+          <span class="proposal-sparkle sparkle-a">&#10022;</span>
+          <span class="proposal-sparkle sparkle-b">&#10022;</span>
+          <span class="proposal-sparkle sparkle-c">&#10022;</span>
+        </div>
+
+        <div class="proposal-card" id="proposalCard">
+          <div class="proposal-question" id="proposalQuestion">
+            <p class="proposal-eyebrow">One last question&hellip; &#10084;&#65039;</p>
+            <h2 class="proposal-intro" id="proposal-title">We&rsquo;ve made so many beautiful memories...</h2>
+            <p class="proposal-story">Somewhere along the way, you became one of the most important people in my life.</p>
+            <p class="proposal-promise">Do you love me enough to choose me for all the memories yet to come?</p>
+            <span class="proposal-ring" aria-hidden="true">&#128141;</span>
+            <div class="love-scene" role="img" aria-label="Two hearts coming together">
+              <span class="love-scene-glow" aria-hidden="true"></span>
+              <svg class="love-hearts" viewBox="0 0 360 190" aria-hidden="true" focusable="false">
+                <path class="love-heart love-heart-yellow" d="M120 160C74 126 41 98 41 65c0-23 17-39 39-39 18 0 32 9 40 24 8-15 22-24 40-24 22 0 39 16 39 39 0 33-33 61-79 95Z" />
+                <path class="love-heart love-heart-lavender" d="M240 160c-46-34-79-62-79-95 0-23 17-39 39-39 18 0 32 9 40 24 8-15 22-24 40-24 22 0 39 16 39 39 0 33-33 61-79 95Z" />
+              </svg>
+              <span class="love-scene-sparkle love-sparkle-one" aria-hidden="true">&#10022;</span>
+              <span class="love-scene-sparkle love-sparkle-two" aria-hidden="true">&#10022;</span>
+              <span class="love-scene-sparkle love-sparkle-three" aria-hidden="true">&#10022;</span>
+            </div>
+            <div class="proposal-actions" id="proposalActions">
+              <button class="proposal-yes" id="proposalYes" type="button">YES &#10084;&#65039;</button>
+              <button class="proposal-no" id="proposalNo" type="button">NO &#128584;</button>
+            </div>
+          </div>
+
+          <div class="proposal-answer" id="proposalAnswer" role="status" aria-live="polite" hidden>
+            <span class="proposal-answer-icon" id="proposalAnswerIcon" aria-hidden="true"></span>
+            <h2 id="proposalAnswerTitle"></h2>
+            <p id="proposalAnswerMessage"></p>
+          </div>
+          <div class="proposal-celebration" id="proposalCelebration" aria-hidden="true"></div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="report-dialog" id="letterDialog" aria-labelledby="report-title">
+      <button class="report-close" id="closeLetterDialog" type="button" aria-label="Close letter">&times;</button>
+      <article class="report-paper">
+        <p class="report-overline">Private file &bull; For your eyes only</p>
+        <h2 id="report-title">CONFIDENTIAL MEDICAL REPORT 🩺💻❤️</h2>
+        <div class="report-details">
+          <p><strong>Patient:</strong> Me</p>
+          <p><strong>Cause of condition:</strong> You</p>
+          <p><strong>Status:</strong> Unfortunately, no recovery expected 😂</p>
+        </div>
+
+        <p class="report-greeting">Dear You,</p>
+        <p>After extensive debugging and several unnecessary overthinking sessions, I have finally diagnosed myself.</p>
+        <p>Apparently, my heart has developed a permanent dependency on you.</p>
+        <p>It started with minor symptoms — waiting for your messages, smiling at my phone like an idiot, remembering completely useless little things you said, and somehow finding you beautiful even when you're doing absolutely nothing.</p>
+        <p>Initially, I assumed it was just a temporary bug.</p>
+        <pre class="report-code"><code>if (thinkingAboutYou)
+    Ignore();</code></pre>
+        <p>Unfortunately, this code has <strong>never worked.</strong></p>
+        <p>Further medical examination revealed something even more serious: you somehow bypassed my firewall, escaped every security check, got <code>ADMIN</code> access to my brain, and installed yourself directly into my heart without asking for permission.</p>
+        <p><strong>Cybersecurity level: pathetic. 😂</strong></p>
+        <p>My brain keeps trying to execute:</p>
+        <pre class="report-code"><code>brain.FocusOnWork();</code></pre>
+        <p>But my heart keeps throwing:</p>
+        <pre class="report-code"><code>Exception: HerThoughtsCannotBeStopped ❤️</code></pre>
+        <p>Doctors might call this an abnormal increase in dopamine.</p>
+        <p>As a developer, I call it a <strong>production issue with no intention of fixing it.</strong></p>
+        <p>And somewhere between all our conversations, laughs, stupid fights, random moments and memories, you stopped being just another person in my life.</p>
+        <p>You became my <strong>default configuration.</strong></p>
+        <p>When something good happens, you're one of the people I want to tell. When something goes wrong, somehow talking to you makes the system a little more stable.</p>
+        <p>You are basically my emotional <code>try-catch</code>. 😂❤️</p>
+        <p>I don't know what our future database contains. There is no API available to fetch that response yet, and apparently God has disabled developer access.</p>
+        <p>But if I could submit one request, it would be:</p>
+        <pre class="report-code"><code>while (life.IsRunning)
+{
+    MakeMemoriesWithYou();
+    AnnoyYou();
+    MakeYouLaugh();
+    CareForYou();
+    ChooseYou();
+}</code></pre>
+        <p>No <code>break;</code>.</p>
+        <p>No timeout.</p>
+        <p>And definitely no <code>DELETE FROM Us</code>. 😂</p>
+        <p>So on your birthday, my official diagnosis is:</p>
+        <p><strong>You are permanently stuck somewhere between my brain and my heart.</strong></p>
+        <div class="report-details report-treatment">
+          <p><strong>Treatment:</strong> Unknown.</p>
+          <p><strong>Cure:</strong> Not required.</p>
+          <p><strong>Prognosis:</strong> I might annoy you for a very, very long time. ❤️</p>
+        </div>
+        <p class="report-birthday"><strong>Happy Birthday to my favorite bug that I never want to fix. 🎂❤️</strong></p>
+        <p class="report-signoff"><code>// End of report. Relationship process still running... ♾️</code></p>
+      </article>
+    </dialog>
+
+    <div
+      class="memory-lightbox"
+      id="memoryLightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="lightboxTitle"
+      hidden
+    >
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close memory viewer">
+        &times;
+      </button>
+      <p class="lightbox-progress" id="lightboxProgress">Memory 1 / 8</p>
+      <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" type="button" aria-label="Previous memory">
+        &#8592;
+      </button>
+      <figure class="lightbox-panel">
+        <img id="lightboxImage" src="" alt="" />
+        <video id="lightboxVideo" controls playsinline hidden></video>
+        <figcaption>
+          <h3 id="lightboxTitle"></h3>
+          <p id="lightboxCaption"></p>
+          <time id="lightboxDate"></time>
+        </figcaption>
+      </figure>
+      <button class="lightbox-arrow lightbox-next" id="lightboxNext" type="button" aria-label="Next memory">
+        &#8594;
+      </button>
+    </div>
+
+    <script src="wishes-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

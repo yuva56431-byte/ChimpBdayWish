@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Submit a birthday wish for the surprise birthday website."
+    />
+    <title>Add a Birthday Wish</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="wish-submit-page">
+      <section class="wish-submit-hero" aria-labelledby="wish-submit-title">
+        <div class="wish-submit-ambient" aria-hidden="true">
+          <span class="submit-balloon submit-balloon-one"></span>
+          <span class="submit-balloon submit-balloon-two"></span>
+          <span class="submit-sparkle submit-sparkle-one"></span>
+          <span class="submit-sparkle submit-sparkle-two"></span>
+          <span class="submit-sparkle submit-sparkle-three"></span>
+          <span class="submit-glow submit-glow-one"></span>
+          <span class="submit-glow submit-glow-two"></span>
+        </div>
+
+        <div class="wish-submit-content">
+          <header class="wish-submit-header">
+            <p class="wish-submit-eyebrow">
+              You're helping create a birthday surprise.
+            </p>
+            <h1 id="wish-submit-title">Leave a Birthday Wish for [Her Name] &#127874;</h1>
+            <p>It only takes a few seconds.</p>
+          </header>
+
+          <form class="wish-form-card" id="wishForm" novalidate>
+            <div class="wish-field">
+              <label for="friendName">Your Name</label>
+              <input
+                id="friendName"
+                name="name"
+                type="text"
+                maxlength="30"
+                autocomplete="name"
+                required
+                aria-describedby="nameError"
+              />
+              <p class="field-message" id="nameError" aria-live="polite"></p>
+            </div>
+
+            <div class="wish-field">
+              <div class="textarea-label-row">
+                <label for="friendWish">Your Birthday Wish</label>
+                <span class="char-counter" id="wishCounter">0 / 300</span>
+              </div>
+              <textarea
+                id="friendWish"
+                name="message"
+                maxlength="300"
+                rows="6"
+                required
+                aria-describedby="wishError wishCounter"
+              ></textarea>
+              <p class="field-message" id="wishError" aria-live="polite"></p>
+            </div>
+
+            <p class="form-message" id="formMessage" aria-live="polite"></p>
+
+            <button class="wish-submit-button" id="submitWish" type="submit">
+              <span class="button-text">&#128140; Add My Wish</span>
+              <span class="button-spinner" aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <div class="wish-success-scene" id="wishSuccessScene" hidden>
+            <div class="flying-note" aria-hidden="true"></div>
+            <div class="submit-bowl" aria-hidden="true">
+              <span class="submit-bowl-glass"></span>
+              <span class="submit-bowl-glow"></span>
+            </div>
+            <article class="wish-success-card">
+              <span class="success-heart" aria-hidden="true">&#9829;</span>
+              <p>Thank you! Your wish has been added to the birthday surprise. &#127800;</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="wish.js"></script>
+  </body>
+</html>
