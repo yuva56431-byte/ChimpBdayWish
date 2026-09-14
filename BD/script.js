@@ -172,6 +172,7 @@
   const wishComplete = document.getElementById("wishComplete");
   const resetBowl = document.getElementById("resetBowl");
   const continueToGallery = document.getElementById("continueToGallery");
+  const skipWishes = document.getElementById("skipWishes");
 
   const publishedWishesUrl =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vS7Twn036xXZ3pzwHPQR1OadA3OTktmpCMdYn8KDpOppoBshGm4xlc9MEw_ATVb33DWViH-OE7mg6tk/pub?output=csv";
@@ -300,6 +301,7 @@
 
   function showCompleteState() {
     wishComplete.hidden = false;
+    skipWishes.hidden = true;
     wishBowlButton.disabled = true;
     wishBowlButton.setAttribute("aria-disabled", "true");
   }
@@ -382,6 +384,7 @@
     wishCard.hidden = true;
     wishCard.classList.remove("is-visible");
     wishComplete.hidden = true;
+    skipWishes.hidden = false;
     wishBowlButton.disabled = false;
     wishBowlButton.removeAttribute("aria-disabled");
     wishBowlButton.classList.remove("is-opening");
@@ -394,6 +397,8 @@
   resetBowl.addEventListener("pointerdown", addButtonRipple);
   continueToGallery.addEventListener("click", goToMemoryGallery);
   continueToGallery.addEventListener("pointerdown", addButtonRipple);
+  skipWishes.addEventListener("click", goToMemoryGallery);
+  skipWishes.addEventListener("pointerdown", addButtonRipple);
   loadWishes();
 
   // ===== MEMORY GALLERY LOGIC =====
@@ -1116,9 +1121,8 @@
   const proposalAnswerTitle = document.getElementById("proposalAnswerTitle");
   const proposalAnswerMessage = document.getElementById("proposalAnswerMessage");
   const proposalCelebration = document.getElementById("proposalCelebration");
-  const canDodge = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  let dodgeCount = 0;
-  let lastDodgeAt = 0;
+  let lastNoDodgeAt = -Infinity;
+  const recentNoPositions = [];
 
   function fitProposalCard() {
     if (!proposalSection.classList.contains("is-current-page")) return;
@@ -1130,30 +1134,61 @@
     }
   }
 
-  function dodgeNoButton(event) {
-    if (!canDodge || event.pointerType !== "mouse" || dodgeCount >= 5 ||
-        !proposalAnswer.hidden || Date.now() - lastDodgeAt < 260) return;
+  function dodgeNoButton(event, force = false) {
+    if (!proposalAnswer.hidden) return;
+    const now = performance.now();
+    if (!force && now - lastNoDodgeAt < 180) return;
 
     const buttonRect = proposalNo.getBoundingClientRect();
     const nearX = Math.max(buttonRect.left - event.clientX, 0, event.clientX - buttonRect.right);
     const nearY = Math.max(buttonRect.top - event.clientY, 0, event.clientY - buttonRect.bottom);
-    if (Math.hypot(nearX, nearY) > 55) return;
+    if (!force && Math.hypot(nearX, nearY) > 55) return;
 
     const area = proposalActions.getBoundingClientRect();
     const maxLeft = Math.max(0, area.width - buttonRect.width);
     const maxTop = Math.max(0, area.height - buttonRect.height);
-    const positions = [
-      [maxLeft, maxTop],
-      [maxLeft * 0.62, 0],
-      [maxLeft * 0.62, maxTop],
-      [maxLeft, 0],
-      [maxLeft * 0.82, maxTop * 0.65],
-    ];
-    const [left, top] = positions[dodgeCount];
-    proposalNo.style.left = `${Math.min(maxLeft, Math.max(0, left))}px`;
-    proposalNo.style.top = `${Math.min(maxTop, Math.max(0, top))}px`;
-    dodgeCount += 1;
-    lastDodgeAt = Date.now();
+    const yesRect = proposalYes.getBoundingClientRect();
+    const pointerX = Number.isFinite(event.clientX) ? event.clientX : buttonRect.left;
+    const pointerY = Number.isFinite(event.clientY) ? event.clientY : buttonRect.top;
+    const candidates = [];
+    for (let column = 0; column <= 8; column += 1) {
+      for (let row = 0; row <= 6; row += 1) {
+        const left = maxLeft * Math.min(1, (column + Math.random() * 0.7) / 8);
+        const top = maxTop * Math.min(1, (row + Math.random() * 0.7) / 6);
+        const x = area.left + left;
+        const y = area.top + top;
+        if (x < yesRect.right + 8 && x + buttonRect.width > yesRect.left - 8 &&
+            y < yesRect.bottom + 8 && y + buttonRect.height > yesRect.top - 8) continue;
+        const distance = Math.hypot(
+          Math.max(x - pointerX, 0, pointerX - x - buttonRect.width),
+          Math.max(y - pointerY, 0, pointerY - y - buttonRect.height)
+        );
+        const travel = Math.hypot(x - buttonRect.left, y - buttonRect.top);
+        if (travel < 45) continue;
+        const repeated = recentNoPositions.some(([oldX, oldY]) =>
+          Math.hypot(left / (maxLeft || 1) - oldX, top / (maxTop || 1) - oldY) < 0.22
+        );
+        candidates.push({ left, top, score: distance - (repeated ? 100 : 0) });
+      }
+    }
+    if (!candidates.length) return;
+    // Randomize among safe escape points instead of alternating farthest corners.
+    candidates.sort((a, b) => b.score - a.score);
+    const choices = candidates.filter((candidate) => candidate.score >= candidates[0].score - 65);
+    const destination = choices[Math.floor(Math.random() * choices.length)];
+    recentNoPositions.push([destination.left / (maxLeft || 1), destination.top / (maxTop || 1)]);
+    if (recentNoPositions.length > 4) recentNoPositions.shift();
+    lastNoDodgeAt = now;
+    // Bounding rectangles include the card's zoom; CSS coordinates do not.
+    const scale = area.width / proposalActions.offsetWidth || 1;
+    proposalNo.style.left = `${destination.left / scale}px`;
+    proposalNo.style.top = `${destination.top / scale}px`;
+  }
+
+  function blockNoActivation(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    dodgeNoButton(event, true);
   }
 
   function celebrateYes() {
@@ -1207,7 +1242,18 @@
 
   window.addEventListener("resize", fitProposalCard);
   if (document.fonts) document.fonts.ready.then(fitProposalCard);
-  proposalActions.addEventListener("pointermove", dodgeNoButton);
+  proposalSection.addEventListener("pointermove", (event) => {
+    if (event.pointerType !== "touch") dodgeNoButton(event);
+  });
+  proposalNo.addEventListener("pointerdown", blockNoActivation);
+  proposalNo.addEventListener("touchstart", (event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    if (!window.PointerEvent) dodgeNoButton(event.changedTouches[0], true);
+  }, { passive: false });
+  proposalNo.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") blockNoActivation(event);
+  });
   proposalYes.addEventListener("click", () => answerProposal(true));
-  proposalNo.addEventListener("click", () => answerProposal(false));
+  proposalNo.addEventListener("click", blockNoActivation);
 })();
