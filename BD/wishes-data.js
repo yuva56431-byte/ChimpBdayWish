@@ -143,5 +143,33 @@ window.BIRTHDAY_WISHES = [
   {
     "name": "Malavika Rajeev",
     "message": "Happy Birthday to you devaa\ud83e\udef6\ud83e\udef6\u2728"
+  },
+  {
+    "name": "Rekesh",
+    "message": "Happy Birthday to you dear"
+  },
+  {
+    "name": "Aasveena",
+    "message": "Happiest B'day Akkaveyyyyyy \ud83e\udef6\u2764\ufe0f"
+  },
+  {
+    "name": "Nithiyashree",
+    "message": "Happpieee birthday tooo youuu\ud83c\udfb5...Happpieee birthday tooo youuu\ud83c\udfb5...Happyy birthdayy to darshini... happyyy birthday to youuuuu.may God blessss new yearr...\ud83c\udfb5\ud83c\udfb5\ud83c\udf82\ud83e\udd73\ud83e\udd73"
+  },
+  {
+    "name": "Biyamol",
+    "message": "MaNy MaNy HaPpY ReTuRnD of ThE DaY dearrr\ud83e\udd0d\ud83d\ude1a\ud83d\ude1a"
+  },
+  {
+    "name": "Kannagi Gopala Kannan",
+    "message": "Happy Birthday My Girl\u267e\ufe0f\ud83d\udc8b\ud83e\udec2\ud83d\udc9c"
+  },
+  {
+    "name": "Rekesh",
+    "message": "Deva akka \ud83d\udc9c"
+  },
+  {
+    "name": "Anushree",
+    "message": "Happy Birthday di devadharshini \ud83e\ude77miss you \ud83e\udec2"
   }
 ];
