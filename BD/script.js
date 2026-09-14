@@ -953,11 +953,40 @@
     );
   }
 
-  function toggleMusicPlaceholder() {
-    const isPlaying = musicToggle.getAttribute("aria-pressed") === "true";
-    musicToggle.setAttribute("aria-pressed", String(!isPlaying));
-    musicToggleText.textContent = isPlaying ? "Play" : "Pause";
+  const backgroundMusic = document.getElementById("backgroundMusic");
+  let musicPausedByUser = false;
+  backgroundMusic.volume = 0.45;
+
+  function updateMusicControl() {
+    const isPlaying = !backgroundMusic.paused;
+    musicToggle.setAttribute("aria-pressed", String(isPlaying));
+    musicToggle.setAttribute("aria-label", isPlaying ? "Pause background music" : "Play background music");
+    musicToggleText.textContent = isPlaying ? "Pause" : "Play";
   }
+
+  async function playMusic() {
+    try {
+      await backgroundMusic.play();
+    } catch {
+      // Keep the play control available if the browser blocks playback.
+    }
+    updateMusicControl();
+  }
+
+  function startMusicOnInteraction(event) {
+    if (musicPausedByUser || !backgroundMusic.paused || musicToggle.contains(event.target)) return;
+    if (event.type === "keydown" && !["Enter", " "].includes(event.key)) return;
+    void playMusic();
+  }
+
+  document.addEventListener("pointerup", startMusicOnInteraction, true);
+  document.addEventListener("click", startMusicOnInteraction, true);
+  document.addEventListener("keydown", startMusicOnInteraction, true);
+  backgroundMusic.addEventListener("play", () => {
+    updateMusicControl();
+  });
+  backgroundMusic.addEventListener("pause", updateMusicControl);
+  void playMusic();
 
   envelopeButton.setAttribute("aria-expanded", "false");
   envelopeButton.addEventListener("click", openLetter);
@@ -970,7 +999,16 @@
     envelopeButton.setAttribute("aria-expanded", "false");
     if (letterSection.classList.contains("is-current-page")) envelopeButton.focus();
   });
-  musicToggle.addEventListener("click", toggleMusicPlaceholder);
+  musicToggle.addEventListener("click", () => {
+    if (backgroundMusic.paused) {
+      musicPausedByUser = false;
+      void playMusic();
+    }
+    else {
+      musicPausedByUser = true;
+      backgroundMusic.pause();
+    }
+  });
   finalSurpriseButton.addEventListener("click", window.goToFinalSurpriseSection);
   finalSurpriseButton.addEventListener("pointerdown", addButtonRipple);
 
